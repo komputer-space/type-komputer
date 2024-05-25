@@ -1,0 +1,48 @@
+@font-face {
+  font-family: "Redaction35";
+  font-weight: 400;
+  src: url(/fonts/Redaction35-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Redaction35";
+  font-weight: 400;
+  font-style: italic;
+  src: url(/fonts/Redaction35-Italic.woff2);
+}
+
+@font-face {
+  font-family: "FavoritLining";
+  font-weight: 500;
+  src: url(/fonts/ABCFavoritLiningEdu-Medium.otf);
+}
+
+@font-face {
+  font-family: "Astloch";
+  font-weight: 500;
+  src: url(/fonts/Astloch-Bold.ttf);
+}
+
+@font-face {
+  font-family: "ChaumontScript";
+  font-weight: 500;
+  src: url(/fonts/ChaumontScript-Regular.otf);
+}
+
+@font-face {
+  font-family: "Compagnon";
+  font-weight: 500;
+  src: url(/fonts/Compagnon-Bold.otf);
+}
+
+@font-face {
+  font-family: "Crimson";
+  font-weight: 500;
+  src: url(/fonts/CrimsonPro-Medium.ttf);
+}
+
+@font-face {
+  font-family: "Instrument";
+  font-weight: 500;
+  src: url(/fonts/InstrumentSerif-Regular.ttf);
+}
