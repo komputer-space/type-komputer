@@ -28,9 +28,14 @@ export class TypeComputer {
     ];
 
     document.oncontextmenu = (e) => e.preventDefault();
+    PAPER.tool = this.activeTool;
   }
 
   update() {}
+
+  setViewMode(value) {
+    PAPER.tool = value ? null : this.activeTool;
+  }
 
   typeToolMouseDown(e) {
     if (e.item == null) {

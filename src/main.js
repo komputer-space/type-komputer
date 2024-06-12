@@ -75,23 +75,31 @@ function setupKeyInput() {
 }
 
 function processKeyInput(e) {
-  switch (e.code) {
-    case "Space":
-      toggleViewMode();
-      break;
-    case "KeyD":
-      debugLayer.toggleDebugLayer();
-      break;
-    case "KeyR":
-      if (app.viewMode) app.canvasExporter.toggleRecord();
-      break;
-    case "KeyS":
-      if (app.viewMode) app.canvasExporter.saveImage();
-      break;
+  console.log(typeof app.typeComputer.activeElement == "undefined");
+  if (!app.typeComputer.activeTypeElement) {
+    // disable keyboard interactions
+    console.log(app.typeComputer.activeElement);
+    switch (e.code) {
+      case "Space":
+        toggleViewMode();
+        break;
+      case "KeyD":
+        debugLayer.toggleDebugLayer();
+        break;
+      case "KeyR":
+        if (app.viewMode) app.canvasExporter.toggleRecord();
+        break;
+      case "KeyS":
+        if (app.viewMode) app.canvasExporter.saveImage();
+        break;
+    }
   }
 }
 
 function toggleViewMode() {
   console.log("toggle view mode");
   app.viewMode = !app.viewMode;
+  const viewModeIndicator = document.getElementById("view-mode-indicator");
+  viewModeIndicator.style.display = app.viewMode ? "flex" : "none";
+  app.typeComputer.setViewMode(app.viewMode);
 }
