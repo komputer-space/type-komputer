@@ -20,7 +20,8 @@
 @font-face {
   font-family: "Astloch";
   font-weight: 500;
-  src: url(/fonts/Astloch-Bold.ttf);
+  src: url(/fonts/Astloch-Bold.woff2) format("woff2");
+  src: url(/fonts/Astloch-Bold.ttf) format("truetype");
 }
 
 @font-face {
@@ -38,11 +39,13 @@
 @font-face {
   font-family: "Crimson";
   font-weight: 500;
-  src: url(/fonts/CrimsonPro-Medium.ttf);
+  src: url(/fonts/CrimsonPro-VariableFont_wght.woff2) format("woff2");
+  src: url(/fonts/CrimsonPro-Medium.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "Instrument";
   font-weight: 500;
-  src: url(/fonts/InstrumentSerif-Regular.ttf);
+  src: url(/fonts/InstrumentSerif-Regular.woff2) format("woff2");
+  src: url(/fonts/InstrumentSerif-Regular.ttf) format("truetype");
 }
