@@ -1,12 +1,18 @@
 import { PaperScope } from "paper";
 import { randomInt } from "./helpers";
+import { ReferenceImage } from "./ReferenceImage";
+import { FileImporter } from "./FileImporter";
 
 const PAPER = new PaperScope();
 
 export class TypeComputer {
   constructor(canvas) {
     this.canvas = canvas;
+    this.referenceImage = new ReferenceImage();
+    this.fileImporter = new FileImporter(this);
+
     PAPER.setup(this.canvas);
+
     this.typeElements = [];
     this.activeTypeElement = null;
     this.editingText = false;
@@ -133,5 +139,11 @@ export class TypeComputer {
 
   setFontSize(size) {
     if (this.activeTypeElement != null) this.activeTypeElement.fontSize = size;
+  }
+
+  // --- FILE IMPORTS
+
+  importImage(url) {
+    this.referenceImage.setImage(url);
   }
 }

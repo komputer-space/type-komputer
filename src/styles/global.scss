@@ -1,5 +1,7 @@
 @import url(./fonts.css);
 @import url(./ui.scss);
+@import url(./dropzone.scss);
+@import url(./reference.scss);
 
 :root {
   font-family: monospace;
@@ -16,6 +18,7 @@ body {
   color: white;
 
   pointer-events: none;
+  overflow: hidden;
 }
 
 #counter {
