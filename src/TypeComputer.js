@@ -48,7 +48,7 @@ export class TypeComputer {
       this.setFontSize(param * 500 + 20);
     });
 
-    this.createTypeElement([200, 200]);
+    this.createTypeElement(PAPER.view.size.divide(2));
   }
 
   update() {}
@@ -62,6 +62,7 @@ export class TypeComputer {
 
   setTransparencyMode(value) {
     this.transparencyMode = value;
+    this.setWireframe(value);
   }
 
   async loadFonts() {
@@ -69,6 +70,19 @@ export class TypeComputer {
     fonts.forEach((font) => {
       font.load();
     });
+  }
+
+  setWireframe(value) {
+    this.typeElements.forEach((typeElement) => {
+      typeElement.selected = value;
+    });
+  }
+
+  updateTypeElements() {
+    this.typeElements.forEach((typeElement) => {
+      if (typeElement.content == "") this.deleteTypeElement(typeElement);
+    });
+    this.setWireframe(this.transparencyMode);
   }
 
   typeToolMouseDown(e) {
@@ -137,10 +151,12 @@ export class TypeComputer {
     typeElement.fontSize = 50;
     typeElement.justification = "center";
     typeElement.fillColor = "white";
+    typeElement.selectedColor = "white";
     typeElement.content = "type";
     typeElement.onDoubleClick = (e) => this.doubleClick(e);
     typeElement.onMouseDrag = (e) => this.moveTypeElement(typeElement, e.delta);
     this.typeElements.push(typeElement);
+    this.updateTypeElements();
   }
 
   deleteTypeElement(element) {
@@ -159,7 +175,7 @@ export class TypeComputer {
     if (element != this.activeTypeElement) {
       if (this.activeTypeElement) this.activeTypeElement.fillColor = "white";
       this.activeTypeElement = element;
-      this.activeTypeElement.fillColor = "red";
+      this.activeTypeElement.fillColor = "#00ff9e";
       this.editingText = false;
     }
   }
