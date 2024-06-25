@@ -3,12 +3,23 @@ import { randomInt } from "./helpers";
 import { ReferenceImage } from "./ReferenceImage";
 import { FileImporter } from "./FileImporter";
 import { ParameterInput } from "./ParameterInput";
+import { InfoLayer } from "./InfoLayer";
 
 const PAPER = new PaperScope();
 
 export class TypeComputer {
   constructor(canvas) {
+    this.loadFonts();
+
     this.canvas = canvas;
+
+    this.transparencyMode = false;
+    this.freeze = false;
+
+    this.infoLayer = new InfoLayer();
+    this.FileImporter = new FileImporter(this);
+    this.referenceImage = new ReferenceImage();
+
     PAPER.setup(this.canvas);
     this.typeElements = [];
     this.activeTypeElement = null;
@@ -36,12 +47,28 @@ export class TypeComputer {
     this.parameterInput = new ParameterInput((param) => {
       this.setFontSize(param * 500 + 20);
     });
+
+    this.createTypeElement([200, 200]);
   }
 
   update() {}
 
+  resize(width, height) {}
+
   setViewMode(value) {
+    this.freeze = value;
     PAPER.tool = value ? null : this.activeTool;
+  }
+
+  setTransparencyMode(value) {
+    this.transparencyMode = value;
+  }
+
+  async loadFonts() {
+    let fonts = Array.from(document.fonts);
+    fonts.forEach((font) => {
+      font.load();
+    });
   }
 
   typeToolMouseDown(e) {
@@ -89,6 +116,17 @@ export class TypeComputer {
     console.log("double click");
     const typeElement = e.target;
     this.deleteTypeElement(typeElement);
+  }
+
+  processSerialData() {
+    // const data = app.serialInput.serialData;
+    // if (data) {
+    //   const input = data.slice(1, -2);
+    //   const splitted = input.split(".");
+    //   const potValue = splitted[9];
+    //   let fontSize = mapRange(potValue, 0, 100, 5, 500);
+    //   app.typeComputer.setFontSize(fontSize);
+    // }
   }
 
   createTypeElement(point) {
@@ -140,5 +178,20 @@ export class TypeComputer {
 
   setFontSize(size) {
     if (this.activeTypeElement != null) this.activeTypeElement.fontSize = size;
+  }
+
+  // --- FILE IMPORTS
+
+  importGlTF(url) {
+    console.log("gltf");
+    this.infoLayer.setActive(true);
+    this.infoLayer.showInfo("3D Files not supported");
+    setTimeout(() => {
+      this.infoLayer.setActive(false);
+    }, 1000);
+  }
+
+  importImage(url) {
+    this.referenceImage.setImage(url);
   }
 }

@@ -4,12 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon-prototype.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Type Computer</title>
+    <title>type komputer</title>
   </head>
   <body>
-    <div id="view-mode-indicator">view-mode</div>
-    <div id="debug-layer">
-      <h2>Debug</h2>
+    <div id="info-layer">
+      <div class="info">loading</div>
+    </div>
+    <div id="transparency-layer">
+      <div class="side-panels">
+        <div id="info-panel">
+          <div class="title">
+            <h1>type komputer</h1>
+            <img src="/title.webp" alt="" />
+          </div>
+          <div id="credits">
+            <p>
+              a <a href="https://komputer.space">komputer.space</a> tool built
+              with <a href="https://paperjs.org/">paper.js</a>.
+            </p>
+            <p>
+              <a
+                id="source-link"
+                href="https://github.com/komputer-space/type-komputer"
+              >
+                → source code</a
+              >
+            </p>
+          </div>
+        </div>
+        <div id="debug-layer"></div>
+      </div>
+      <div id="focus-info">press F to focus</div>
     </div>
     <div class="ui-container ui-bottom">
       <div class="ui-panel ui-panel-horizontal">
@@ -25,8 +50,23 @@
         <button id="serial-button">serial connect</button>
       </div>
     </div>
+    <div id="view-mode-indicator">
+      <div>
+        <img src="/view-frame/frame-01.webp" alt="" />
+        <img src="/view-frame/frame-02.webp" alt="" />
+      </div>
+      <div>
+        <img src="/view-frame/frame-03.webp" alt="" />
+        <img src="/view-frame/frame-04.webp" alt="" />
+      </div>
+    </div>
     <div id="app">
-      <canvas id="canvas"></canvas>
+      <div id="reference">
+        <img id="reference-image" src="" alt="" />
+      </div>
+      <div id="dropzone">
+        <canvas id="canvas"></canvas>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
