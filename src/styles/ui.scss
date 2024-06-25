@@ -25,6 +25,7 @@
 
   &.ui-panel-horizontal {
     flex-direction: row;
+    align-items: center;
   }
 
   &.ui-panel-vertical {
@@ -53,6 +54,40 @@ button:hover {
   color: black;
 }
 
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 10rem; /* Full-width */
+  height: 1rem; /* Specified height */
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: 1px solid white; /* Remove outline */
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 1rem; /* Set a specific slider handle width */
+  height: 1rem; /* Slider handle height */
+  background: #ff5414; /* Green background */
+  border-radius: 4px;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 1rem; /* Set a specific slider handle width */
+  height: 1rem; /* Slider handle height */
+  background: #ff5414; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
 // --- debug layer
 
 #debug-layer {
@@ -75,4 +110,3 @@ button:hover {
     color: chartreuse;
   }
 }
-

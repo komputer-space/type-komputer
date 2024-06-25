@@ -1,5 +1,8 @@
 import { PaperScope } from "paper";
 import { randomInt } from "./helpers";
+import { ReferenceImage } from "./ReferenceImage";
+import { FileImporter } from "./FileImporter";
+import { ParameterInput } from "./ParameterInput";
 
 const PAPER = new PaperScope();
 
@@ -29,6 +32,10 @@ export class TypeComputer {
 
     document.oncontextmenu = (e) => e.preventDefault();
     PAPER.tool = this.activeTool;
+
+    this.parameterInput = new ParameterInput((param) => {
+      this.setFontSize(param * 500 + 20);
+    });
   }
 
   update() {}
