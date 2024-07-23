@@ -7,17 +7,23 @@ import { InfoLayer } from "./InfoLayer";
 
 const PAPER = new PaperScope();
 
-export class TypeComputer {
+export class TypeKomputer {
   constructor(canvas) {
+    this.transparencyMode = false;
+    this.freeze = false;
+    this.idle = false;
+
+    this.loader = new FileImporter(this);
+
+    // -------
+
     this.loadFonts();
 
     this.canvas = canvas;
 
     this.transparencyMode = false;
-    this.freeze = false;
 
     this.infoLayer = new InfoLayer();
-    this.FileImporter = new FileImporter(this);
     this.referenceImage = new ReferenceImage();
 
     PAPER.setup(this.canvas);
@@ -51,6 +57,8 @@ export class TypeComputer {
     this.createTypeElement(PAPER.view.size.divide(2));
   }
 
+  // --- CORE METHODS
+
   update() {}
 
   resize(width, height) {}
@@ -65,25 +73,11 @@ export class TypeComputer {
     this.setWireframe(value);
   }
 
-  async loadFonts() {
-    let fonts = Array.from(document.fonts);
-    fonts.forEach((font) => {
-      font.load();
-    });
+  setIdleMode(value) {
+    this.idle = value;
   }
 
-  setWireframe(value) {
-    this.typeElements.forEach((typeElement) => {
-      typeElement.selected = value;
-    });
-  }
-
-  updateTypeElements() {
-    this.typeElements.forEach((typeElement) => {
-      if (typeElement.content == "") this.deleteTypeElement(typeElement);
-    });
-    this.setWireframe(this.transparencyMode);
-  }
+  // --- INPUTS
 
   typeToolMouseDown(e) {
     if (e.item == null) {
@@ -141,6 +135,28 @@ export class TypeComputer {
     //   let fontSize = mapRange(potValue, 0, 100, 5, 500);
     //   app.typeComputer.setFontSize(fontSize);
     // }
+  }
+
+  // --- CUSTOM METHODS
+
+  async loadFonts() {
+    let fonts = Array.from(document.fonts);
+    fonts.forEach((font) => {
+      font.load();
+    });
+  }
+
+  setWireframe(value) {
+    this.typeElements.forEach((typeElement) => {
+      typeElement.selected = value;
+    });
+  }
+
+  updateTypeElements() {
+    this.typeElements.forEach((typeElement) => {
+      if (typeElement.content == "") this.deleteTypeElement(typeElement);
+    });
+    this.setWireframe(this.transparencyMode);
   }
 
   createTypeElement(point) {

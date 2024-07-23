@@ -19,6 +19,7 @@
   }
 
   #debug-layer {
+    font-size: 0.875rem;
     display: flex;
     flex-shrink: 1;
     flex-direction: column;
@@ -95,7 +96,7 @@
   }
 
   #focus-info {
-    color: var(--accent-blue);
+    color: var(--accent-green);
     width: 100%;
     max-height: 100px;
     flex-grow: 1;

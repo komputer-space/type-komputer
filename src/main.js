@@ -1,10 +1,13 @@
 import "./styles/global.scss";
-import { TypeComputer } from "./TypeComputer";
+import { TypeKomputer } from "./TypeKomputer.js";
 import { CanvasExporter } from "./CanvasExporter.js";
 import { TransparencyLayer } from "./TransparencyLayer.js";
 
 const app = {
   viewMode: false,
+  inputActive: true,
+  inputTimeout: null,
+  transparencyMode: false,
   smallScreen: false,
   touchDevice: false,
   domElement: document.getElementById("app"),
@@ -14,21 +17,24 @@ const app = {
 function setup() {
   // app.sketchManual = new SketchManual();
   app.canvasExporter = new CanvasExporter(app.canvas);
-  app.tool = new TypeComputer(app.canvas);
+  app.tool = new TypeKomputer(app.canvas);
+
+  setupInputs();
+  document.onkeydown = processKeyInput;
+  document.onmousemove = inputTimeout;
+
+  window.onresize = resize;
 
   app.transparencyLayer = new TransparencyLayer();
   app.transparencyLayer.addObject(app, "Application");
   app.transparencyLayer.addObject(app.transparencyLayer, "Transparency Layer");
-  // app.transparencyLayer.addObject(app.sketchManual.settings, "Settings");
   app.transparencyLayer.addObject(app.tool, "Type Komputer");
 
   setTransparencyMode(true);
 
-  document.onkeydown = processKeyInput;
-
-  window.onresize = resize;
   resize();
   update();
+  inputTimeout();
 }
 
 function update() {
@@ -43,13 +49,14 @@ setup();
 
 function processKeyInput(e) {
   document.activeElement.blur();
-  // disable interactions while editing text
-  if (!app.tool.activeTypeElement) {
+  inputTimeout();
+  if (app.inputActive && !app.tool.activeTypeElement) {
+    document.activeElement.blur();
     switch (e.code) {
-      case "Space":
+      case "KeyF":
         toggleViewMode();
         break;
-      case "KeyF":
+      case "Space":
         toggleTransparencyMode();
         break;
       case "KeyR":
@@ -58,14 +65,33 @@ function processKeyInput(e) {
       case "KeyS":
         if (app.viewMode) app.canvasExporter.saveImage();
         break;
-      case "KeyO":
-        if (app.viewMode) app.tool.exportScene();
-        break;
       case "Escape":
         window.location.replace("https://toolbox.komputer.space");
         break;
     }
   }
+}
+
+function inputTimeout() {
+  app.tool.setIdleMode(false);
+  clearTimeout(app.inputTimeout);
+  app.inputTimeout = setTimeout(function () {
+    console.log("input timeout, enter idle");
+    app.tool.setIdleMode(true);
+  }, 30000);
+}
+
+function setupInputs() {
+  // prevent tool inputs while typing into any text input fields
+  const inputs = Array.from(document.querySelectorAll("input[type=text]"));
+  inputs.forEach((input) => {
+    input.onfocus = () => {
+      app.inputActive = false;
+    };
+    input.onblur = () => {
+      app.inputActive = true;
+    };
+  });
 }
 
 function toggleViewMode() {
